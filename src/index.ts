@@ -29,21 +29,14 @@
 // 2nd project (CSV)
 import path from 'path';
 
-import { CsvFileReader } from './CsvFileReader';
-import { MatchResult } from './MatchResult';
- 
-const reader = new CsvFileReader(path.join(__dirname, '..', 'data', 'football.csv'));
-reader.read();
+import { MatchReader } from './MatchReader';
+import { Summary } from './Summary';
 
+const matchReader = MatchReader.fromCsv(path.join(__dirname, '..', 'data', 'football.csv'));
+const summary = Summary.winsAnalysisWithHtmlReport('Man United');
 
-let manUnitedWins = 0;
+matchReader.load();
+summary.buildAndPrintReport(matchReader.matches)
 
-for (let match of reader.data) {
-    if (match[1] === 'Man United' && match[5] === MatchResult.HomeWin) {
-        manUnitedWins++;
-    } else if (match[2] === 'Man United' && match[5] === MatchResult.AwayWin) {
-        manUnitedWins++;
-    };
-};
+// const summary = new Summary(new WinsAnalysis('Man United'), /*new ConsoleReport() */ new HtmlReport());
 
-console.log(`Man United won ${manUnitedWins} game`);

@@ -27,26 +27,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // linkedList.print();
 // 2nd project (CSV)
 const path_1 = __importDefault(require("path"));
-const CsvFileReader_1 = require("./CsvFileReader");
-// const matches = 
-const reader = new CsvFileReader_1.CsvFileReader(path_1.default.join(__dirname, '..', 'data', 'football.csv'));
-reader.read();
-var MatchResult;
-(function (MatchResult) {
-    MatchResult["HomeWin"] = "H";
-    MatchResult["AwayWin"] = "A";
-    MatchResult["Draw"] = "D";
-})(MatchResult || (MatchResult = {}));
-;
-let manUnitedWins = 0;
-for (let match of reader.data) {
-    if (match[1] === 'Man United' && match[5] === MatchResult.HomeWin) {
-        manUnitedWins++;
-    }
-    else if (match[2] === 'Man United' && match[5] === MatchResult.AwayWin) {
-        manUnitedWins++;
-    }
-    ;
-}
-;
-console.log(`Man United won ${manUnitedWins} game`);
+const MatchReader_1 = require("./MatchReader");
+const Summary_1 = require("./Summary");
+const matchReader = MatchReader_1.MatchReader.fromCsv(path_1.default.join(__dirname, '..', 'data', 'football.csv'));
+const summary = Summary_1.Summary.winsAnalysisWithHtmlReport('Man United');
+matchReader.load();
+summary.buildAndPrintReport(matchReader.matches);
+// const summary = new Summary(new WinsAnalysis('Man United'), /*new ConsoleReport() */ new HtmlReport());

@@ -8,7 +8,7 @@ const fs_1 = __importDefault(require("fs"));
 class CsvFileReader {
     constructor(filename) {
         this.filename = filename;
-        this.data = [[]];
+        this.data = [];
     }
     ;
     read() {
@@ -18,7 +18,8 @@ class CsvFileReader {
             .split('\n')
             .map((row) => {
             return row.split(',');
-        });
+        })
+            .map(this.mapRow);
     }
     ;
 }
