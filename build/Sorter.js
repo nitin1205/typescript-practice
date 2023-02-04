@@ -1,7 +1,11 @@
 "use strict";
+// interface Sortable {
+//     length: number;
+//     compare(leftIndex: number) : boolean;
+//     swap(leftIndex: number): void;
+// };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sorter = void 0;
-;
 class Sorter {
     sort() {
         const { length } = this;
